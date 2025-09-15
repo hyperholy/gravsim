@@ -70,8 +70,9 @@ module scene
         character, dimension(HEIGHT, WIDTH) :: screen
         integer :: i, j
         screen = scenereturn()
-        print *, char(27)//"[2J"! clear screen
+        call system("clear")
         do i = 1, HEIGHT
+            write(*,'(I0)', advance="no") i
             do j = 1, WIDTH
                 write(*,'(A)', advance="no") screen(i,j)
             end do
