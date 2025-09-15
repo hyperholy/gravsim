@@ -15,13 +15,14 @@ program main
     rock2%id = 2
     rock2%coord = [8.0,8.0]
     rock2%mass = 3
-    rock2%velocity = [0.0,0.0]
+    rock2%velocity = [2.0,0.0]
     call sceneadd(rock)
     call sceneadd(rock2)
     !do the physic
     do i = 1, 30
         call printscreen()
         call sceneprocess()
+        call system("sleep .25")
         !print *, "rock2 pos", masses(2)%coord
     end do
 end program main

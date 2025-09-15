@@ -68,16 +68,14 @@ module scene
     !print onto the console the 
     subroutine printscreen()
         character, dimension(HEIGHT, WIDTH) :: screen
-        integer :: i, j
+        character, dimension(WIDTH) :: line
+        integer :: i
         screen = scenereturn()
         call system("clear")
         do i = 1, HEIGHT
-            write(*,'(I0)', advance="no") i
-            do j = 1, WIDTH
-                write(*,'(A)', advance="no") screen(i,j)
-            end do
-            write(*,*)
+            line = screen(:,i)
+            !write(*,'(A)') line
+            print *, line
         end do
-        
     end subroutine printscreen
 end module scene
