@@ -33,6 +33,7 @@ module pointmass_mod
                 dx = masslist(i)%coord(1) - this%coord(1)
                 dy = masslist(i)%coord(2) - this%coord(2)
                 r = v2d_distance(masslist(i)%coord, this%coord)
+                if(abs(r) <= 1) cycle
                 vforce(1) = vforce(1) + gravconst * this%mass * masslist(i)%mass * dx / r ** 3
                 vforce(2) = vforce(2) + gravconst * this%mass * masslist(i)%mass * dy / r ** 3
             end if

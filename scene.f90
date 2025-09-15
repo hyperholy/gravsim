@@ -3,7 +3,7 @@ module scene
     use v2dmaths
     implicit none
     public
-    integer, parameter :: WIDTH = 64, HEIGHT = 64
+    integer, parameter :: WIDTH = 164, HEIGHT = 60
     real, parameter :: DT = 10000 !silly gravity mult
     type(pointmass), allocatable :: masses (:)
     contains
@@ -44,7 +44,7 @@ module scene
     end subroutine sceneprocess
     !outputs the scene onto a 64x64 char array
     function scenereturn() result(parray)
-        character, dimension(HEIGHT, WIDTH) :: parray !for outputting~!
+        character(len=WIDTH) :: parray(HEIGHT) !for outputting~!
         integer :: i
         character :: c
         parray = ' '
@@ -55,27 +55,33 @@ module scene
             c = '?'
             if (masses(i)%mass < 5) then
                 c = '.'
-            else if (masses(i)%mass < 10) then
+            else if (masses(i)%mass < 100) then
                 c = '*'
-            else if (masses(i)%mass < 20) then
+            else if (masses(i)%mass < 9999) then
                 c = '@'
             else
                 c = '#'
             end if
-            parray(int(masses(i)%coord(2)), int(masses(i)%coord(1))) = c
+            parray(int(masses(i)%coord(2)))(int(masses(i)%coord(1)):int(masses(i)%coord(1))) = c
         end do
     end function scenereturn
     !print onto the console the 
     subroutine printscreen()
-        character, dimension(HEIGHT, WIDTH) :: screen
-        character, dimension(WIDTH) :: line
-        integer :: i
+        character(len=WIDTH) :: screen(HEIGHT)
+        character(len=WIDTH) :: line, lineout, info
+        integer :: i, n
+        n = size(masses)
         screen = scenereturn()
         call system("clear")
         do i = 1, HEIGHT
-            line = screen(:,i)
-            !write(*,'(A)') line
-            print *, line
+            line = screen(i)
+            if (i <= n) then
+                write(info,'(I0," POS: ",F5.2," ",F5.2," VEL: ",F5.2," ",F5.2)')i,masses(i)%coord(1),masses(i)%coord(2),masses(i)%velocity(1),masses(i)%velocity(2)
+                lineout = trim(line)//trim(info)
+            else
+                lineout = line
+            end if
+            print *, lineout
         end do
     end subroutine printscreen
 end module scene
