@@ -32,5 +32,4 @@ program main
     end do
 end program main
 
-!cd "C:\Users\Angle Grinder\Documents\GitHub\gravsim"
 !gfortran v2dmaths.f90 pointmass_mod.f90 scene.f90 gravity.f90 -o gravity
