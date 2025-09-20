@@ -42,7 +42,7 @@ module scene
             
         end do
     end subroutine sceneprocess
-    !outputs the scene onto a 64x64 char array
+    !outputs the scene onto a WIDTHxHEIGHT char array
     function scenereturn() result(parray)
         character(len=WIDTH) :: parray(HEIGHT) !for outputting~!
         integer :: i
